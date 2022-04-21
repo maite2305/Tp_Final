@@ -1,0 +1,125 @@
+create database finaltp;
+
+create TABLE Concepto (
+id_concepto int  auto_increment PRIMARY KEY, 
+    nombre varchar(50) null,
+    contenido longtext null
+    );
+    
+CREATE TABLE Preguntas (
+    id_pregunta int auto_increment  PRIMARY KEY,
+    contenido varchar(255) not null,
+    id_concepto int not null,
+    constraint Preguntas_ibfk_1
+        foreign key (id_concepto) references Concepto (id_concepto)
+);   
+
+create index id_concepto on Preguntas (id_concepto);
+
+CREATE TABLE Respuestas (
+    id_respuesta int auto_increment primary key,
+    contenido varchar(255) not null,
+    id_pregunta int not null,
+    es_correcta tinyint(1) not null,
+    constraint Respuestas_ibfk_1
+      foreign key (id_pregunta) references Preguntas (id_pregunta)
+);
+
+create index id_pregunta on Respuestas (id_pregunta);
+
+CREATE TABLE Ejemplos (
+    id_ejemplos int auto_increment primary key,
+    contenido varchar(255) null, 
+    descripcion varchar(255) null,
+    id_concepto INT null,
+    constraint Ejemplos_ibfk_1
+       foreign key (id_concepto) references Concepto(id_concepto)
+);
+
+create index id_concepto on Ejemplos (id_concepto);
+
+insert into Concepto(nombre, contenido)
+values
+('Implementacion de Interfaces', 'Una interfaz es un tipo de datos abstractos que define una lista de métodos públicos 
+  que debe proporcionar cualquier clase que implemente la interfaz. Una interfaz puede también incluya una lista de variables 
+  constantes y métodos predeterminados. En Java, una interfaz se define con la palabra clave de interfaz, análoga a la clase 
+  palabra clave utilizada al definir una clase. Una clase invoca la interfaz usando los implementos palabra clave en su 
+  definición de clase'),
+('Definicion de una interfaz', 'La siguiente es una lista de reglas para crear una interfaz: 1. Las interfaces no se pueden instanciar directamente.
+2. No se requiere que una interfaz tenga ningún método.
+3. Una interfaz no puede marcarse como definitiva.
+4. Se supone que todas las interfaces de nivel superior tienen acceso público o predeterminado, y deben incluir el modificador abstracto en su definición. 
+Por lo tanto, marcar una interfaz como private, protected o final desencadenará un error del compilador, ya que esto es incompatible con estos supuestos.
+5. Se supone que todos los métodos no predeterminados en una interfaz tienen los modificadores abstract y público en su definición. 
+Por lo tanto, marcar un método como privado, protegido, o final desencadenará errores del compilador, ya que estos son incompatibles con el resumen y palabras clave públicas.
+'),
+('Heredar una interfaz', 'Hay dos reglas de herencia que debe tener en cuenta al ampliar una interfaz:
+1. Una interfaz que extiende otra interfaz, así como una clase abstracta que implementa una interfaz, hereda todos los métodos abstractos como su propio resumen métodos.
+2. La primera clase concreta que implementa una interfaz o extiende una clase abstracta que implementa una interfaz, debe proporcionar una implementación para todos los heredados
+métodos abstractos. 
+
+Al igual que una clase abstracta, una interfaz puede extenderse usando la palabra clave extend. En esto manera, la nueva interfaz secundaria hereda todos los 
+métodos abstractos de la interfaz principal. Sin embargo, a diferencia de una clase abstracta, una interfaz puede extender múltiples interfaces. 
+'),
+('Variables de interfaz','Las variables de interfaz son esencialmente variables constantes definidas en el nivel de interfaz. Como se supone que son estáticos, 
+son accesibles incluso sin una instancia de la interfaz');
+
+
+
+insert into preguntas(id_concepto, contenido)
+values
+(1,'¿Qué significa que una clase implementa una interfaz en Java?'),
+(1,'Cuantas interfaces permite que las clases implementen?'),
+(1,'Cual es la palabra reservada para implementar un Interface?'),
+(2,'Cual de las siguientes reglas se usan para crear una interfaz?'),
+(2,'Que tipo de accesos tienen  las interfaces de nivel superior? '),
+(2,'Los métodos no predeterminados en una interfaz que modificadores tienen?'),
+(3,'Que debe hereda una interfaz que extiende otra interfaz?'),
+(3,'Cual es la palabra clave para extender una Interface?'),
+(3,'Que hereda la interfaz Secundaria?'),
+(4,'Que tipo de variables se definen en la interfaz?'),
+(4,'Las Variables son accesibles incluso sin una instancia de la interfaz?');
+
+insert into respuestas(id_pregunta, contenido, es_correcta)
+values
+(2, 'Una interfaz especifica que se debe hacer, pero no como hacerlo.', 1),
+(2, 'Para implementar una interfaz, el lenguaje nos proporciona el comando new.', 0),
+(2, 'Pertenece a una jerarquía de clases',0),
+(3, 'Permite la implementación de dos interfaces',0),
+(3, 'Permite la implementación de cualquier número de interfaces',1),
+(3, 'Permite la implementación de cinco interfaces',0),
+(4, 'Extends',0),
+(4, 'Public',0),
+(4, 'Implements',1),
+(5, 'Las interfaces  se pueden instanciar directamente',0),
+(5, 'Una interfaz no puede marcarse como definitiva',0),
+(5, 'No se requiere que una interfaz tenga ningún método',1),
+(6, 'Acceso publico o predeterminado',1),
+(6, 'Acceso private, protected',0),
+(6, 'Acesso final',0),
+(7, 'protegido, final',0),
+(7, 'abstract y público',1),
+(7, 'privado, protegido, o final',0),
+(8, 'Todos los métodos abstractos como su propio resumen métodos',1),
+(8, 'Todas las variables',0),
+(8, 'Todos los objetos',0),
+(9, 'Extends',1),
+(9, 'Public',0),
+(9, 'Implements',0),
+(10, 'Las variables',0),
+(10, 'Las clases',0),
+(10, 'Todos los métodos abstractos de la interfaz principal',1),
+(11, 'Variables locales',0),
+(11, 'Variables constantes',1),
+(11, 'Variables primitivas',0),
+(12, 'Si',1),
+(12, 'No',0);
+
+
+
+
+
+
+
+
+
